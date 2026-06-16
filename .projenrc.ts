@@ -6,6 +6,8 @@ import { Nvmrc } from "projen-nvm";
 const MAJOR_VERSION = 2;
 const NODE_VERSION = "24.14.0";
 const MIN_NODE_VERSION = NODE_VERSION;
+const RELEASE_DIFF_COMMAND = "git diff --ignore-space-at-eol --exit-code";
+const RELEASE_DIFF_COMMAND_WITHOUT_DOCS = `${RELEASE_DIFF_COMMAND} -- . ':!docs'`;
 
 const project = new Node20GitHubActionTypescriptProject({
     majorVersion: MAJOR_VERSION,
@@ -92,7 +94,7 @@ chmodSync(".projen/tasks.json", 0o644);
 writeFileSync(
     ".projen/tasks.json",
     readFileSync(".projen/tasks.json", "utf8").replace(
-        "git diff --ignore-space-at-eol --exit-code",
-        "git diff --ignore-space-at-eol --exit-code -- . ':!docs'",
+        RELEASE_DIFF_COMMAND,
+        RELEASE_DIFF_COMMAND_WITHOUT_DOCS,
     ),
 );
