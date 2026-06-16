@@ -80,3 +80,8 @@ for (const workflowFile of [
 
     writeFileSync(workflowFile, workflow);
 }
+
+writeFileSync(
+    ".npmrc",
+    readFileSync(".npmrc", "utf8").replace(/^resolution-mode=highest\n?/m, ""),
+);
