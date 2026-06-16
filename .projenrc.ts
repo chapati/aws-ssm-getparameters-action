@@ -6,6 +6,9 @@ import { Nvmrc } from "projen-nvm";
 const MAJOR_VERSION = 2;
 const NODE_VERSION = "24.14.0";
 const MIN_NODE_VERSION = NODE_VERSION;
+const UTF8 = "utf8";
+const NPMRC_FILE = ".npmrc";
+const PROJEN_TASKS_FILE = ".projen/tasks.json";
 const RELEASE_DIFF_COMMAND = "git diff --ignore-space-at-eol --exit-code";
 const RELEASE_DIFF_COMMAND_WITHOUT_DOCS = `${RELEASE_DIFF_COMMAND} -- . ':!docs'`;
 
@@ -75,7 +78,7 @@ for (const workflowFile of [
     ".github/workflows/release.yml",
     ".github/workflows/upgrade-main.yml",
 ]) {
-    const workflow = readFileSync(workflowFile, "utf8")
+    const workflow = readFileSync(workflowFile, UTF8)
         .replace(/pnpm\/action-setup@v2\.2\.4/g, "pnpm/action-setup@v6")
         .replace(/actions\/upload-artifact@v3/g, "actions/upload-artifact@v4")
         .replace(/actions\/download-artifact@v3/g, "actions/download-artifact@v4");
@@ -84,16 +87,16 @@ for (const workflowFile of [
     writeFileSync(workflowFile, workflow);
 }
 
-chmodSync(".npmrc", 0o644);
+chmodSync(NPMRC_FILE, 0o644);
 writeFileSync(
-    ".npmrc",
-    readFileSync(".npmrc", "utf8").replace(/^resolution-mode=highest\n?/m, ""),
+    NPMRC_FILE,
+    readFileSync(NPMRC_FILE, UTF8).replace(/^resolution-mode=highest\n?/m, ""),
 );
 
-chmodSync(".projen/tasks.json", 0o644);
+chmodSync(PROJEN_TASKS_FILE, 0o644);
 writeFileSync(
-    ".projen/tasks.json",
-    readFileSync(".projen/tasks.json", "utf8").replace(
+    PROJEN_TASKS_FILE,
+    readFileSync(PROJEN_TASKS_FILE, UTF8).replace(
         RELEASE_DIFF_COMMAND,
         RELEASE_DIFF_COMMAND_WITHOUT_DOCS,
     ),
