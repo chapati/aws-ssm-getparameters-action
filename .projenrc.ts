@@ -3,8 +3,8 @@ import { RunsUsing } from "projen-github-action-typescript";
 import { Nvmrc } from "projen-nvm";
 
 const MAJOR_VERSION = 2;
-const NODE_VERSION = "24";
-const MIN_NODE_VERSION = "24.0.0";
+const NODE_VERSION = "24.14.0";
+const MIN_NODE_VERSION = NODE_VERSION;
 
 const project = new Node20GitHubActionTypescriptProject({
     majorVersion: MAJOR_VERSION,
