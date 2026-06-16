@@ -95,7 +95,9 @@ for (const workflowFile of [
 chmodSync(NPMRC_FILE, 0o644);
 writeFileSync(
     NPMRC_FILE,
-    readFileSync(NPMRC_FILE, UTF8).replace(/^resolution-mode=highest\n?/m, ""),
+    `${readFileSync(NPMRC_FILE, UTF8)
+        .replace(/^resolution-mode=highest\n?/m, "")
+        .trimEnd()}\n`,
 );
 
 chmodSync(PROJEN_TASKS_FILE, 0o644);
