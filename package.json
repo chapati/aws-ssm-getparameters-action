@@ -31,7 +31,7 @@
     "@types/clone-deep": "^4.0.4",
     "@types/jest": "^29.5.11",
     "@types/lodash.chunk": "^4.2.9",
-    "@types/node": "^18",
+    "@types/node": "^24",
     "@typescript-eslint/eslint-plugin": "^6",
     "@typescript-eslint/parser": "^6",
     "@vercel/ncc": "^0.38.1",
@@ -65,7 +65,7 @@
   },
   "pnpm": {},
   "engines": {
-    "node": ">= 18.12.0 <= 20.10.0"
+    "node": ">= 24.0.0"
   },
   "main": "lib/index.js",
   "license": "Apache-2.0",

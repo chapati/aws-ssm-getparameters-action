@@ -3,10 +3,14 @@ import { RunsUsing } from "projen-github-action-typescript";
 import { Nvmrc } from "projen-nvm";
 
 const MAJOR_VERSION = 2;
+const NODE_VERSION = "24";
+const MIN_NODE_VERSION = "24.0.0";
 
 const project = new Node20GitHubActionTypescriptProject({
     majorVersion: MAJOR_VERSION,
     defaultReleaseBranch: "main",
+    minNodeVersion: MIN_NODE_VERSION,
+    workflowNodeVersion: NODE_VERSION,
 
     devDeps: [
         "@types/lodash.chunk",
@@ -36,7 +40,7 @@ const project = new Node20GitHubActionTypescriptProject({
             },
         },
         runs: {
-            using: RunsUsing.NODE_20,
+            using: "node24" as RunsUsing,
             main: "dist/index.js",
         },
         branding: {
@@ -55,6 +59,10 @@ const project = new Node20GitHubActionTypescriptProject({
     docgen: true,
 });
 
-new Nvmrc(project);
+new Nvmrc(project, { nodeVersion: NODE_VERSION });
+
+project.package.addField("engines", {
+    node: `>= ${MIN_NODE_VERSION}`,
+});
 
 project.synth();
