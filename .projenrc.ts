@@ -1,3 +1,4 @@
+import { readFileSync, writeFileSync } from "fs";
 import { Node20GitHubActionTypescriptProject } from "dkershner6-projen-github-actions";
 import { RunsUsing } from "projen-github-action-typescript";
 import { Nvmrc } from "projen-nvm";
@@ -66,3 +67,16 @@ project.package.addField("engines", {
 });
 
 project.synth();
+
+for (const workflowFile of [
+    ".github/workflows/build.yml",
+    ".github/workflows/release.yml",
+    ".github/workflows/upgrade-main.yml",
+]) {
+    const workflow = readFileSync(workflowFile, "utf8")
+        .replace(/pnpm\/action-setup@v2\.2\.4/g, "pnpm/action-setup@v6")
+        .replace(/actions\/upload-artifact@v3/g, "actions/upload-artifact@v4")
+        .replace(/actions\/download-artifact@v3/g, "actions/download-artifact@v4");
+
+    writeFileSync(workflowFile, workflow);
+}
