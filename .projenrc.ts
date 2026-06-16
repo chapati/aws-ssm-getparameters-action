@@ -81,7 +81,10 @@ for (const workflowFile of [
     const workflow = readFileSync(workflowFile, UTF8)
         .replace(/pnpm\/action-setup@v2\.2\.4/g, "pnpm/action-setup@v6")
         .replace(/actions\/upload-artifact@v3/g, "actions/upload-artifact@v4")
-        .replace(/actions\/download-artifact@v3/g, "actions/download-artifact@v4");
+        .replace(
+            /actions\/download-artifact@v3/g,
+            "actions/download-artifact@v4",
+        );
 
     chmodSync(workflowFile, 0o644);
     writeFileSync(workflowFile, workflow);
