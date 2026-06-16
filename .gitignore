@@ -51,3 +51,4 @@ junit.xml
 !/action.yml
 !/.nvmrc
 !/.projenrc.ts
+.idea
