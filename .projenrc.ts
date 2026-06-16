@@ -1,4 +1,5 @@
 import { chmodSync, readFileSync, writeFileSync } from "fs";
+
 import { Node20GitHubActionTypescriptProject } from "dkershner6-projen-github-actions";
 import { RunsUsing } from "projen-github-action-typescript";
 import { Nvmrc } from "projen-nvm";
@@ -80,6 +81,7 @@ for (const workflowFile of [
 ]) {
     const workflow = readFileSync(workflowFile, UTF8)
         .replace(/pnpm\/action-setup@v2\.2\.4/g, "pnpm/action-setup@v6")
+        .replace(/actions\/setup-node@v3/g, "actions/setup-node@v6")
         .replace(/actions\/upload-artifact@v3/g, "actions/upload-artifact@v4")
         .replace(
             /actions\/download-artifact@v3/g,
