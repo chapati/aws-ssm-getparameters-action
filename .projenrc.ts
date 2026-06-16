@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from "fs";
+import { chmodSync, readFileSync, writeFileSync } from "fs";
 import { Node20GitHubActionTypescriptProject } from "dkershner6-projen-github-actions";
 import { RunsUsing } from "projen-github-action-typescript";
 import { Nvmrc } from "projen-nvm";
@@ -78,9 +78,11 @@ for (const workflowFile of [
         .replace(/actions\/upload-artifact@v3/g, "actions/upload-artifact@v4")
         .replace(/actions\/download-artifact@v3/g, "actions/download-artifact@v4");
 
+    chmodSync(workflowFile, 0o644);
     writeFileSync(workflowFile, workflow);
 }
 
+chmodSync(".npmrc", 0o644);
 writeFileSync(
     ".npmrc",
     readFileSync(".npmrc", "utf8").replace(/^resolution-mode=highest\n?/m, ""),
