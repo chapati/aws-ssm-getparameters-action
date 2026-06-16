@@ -87,3 +87,12 @@ writeFileSync(
     ".npmrc",
     readFileSync(".npmrc", "utf8").replace(/^resolution-mode=highest\n?/m, ""),
 );
+
+chmodSync(".projen/tasks.json", 0o644);
+writeFileSync(
+    ".projen/tasks.json",
+    readFileSync(".projen/tasks.json", "utf8").replace(
+        "git diff --ignore-space-at-eol --exit-code",
+        "git diff --ignore-space-at-eol --exit-code -- . ':!docs'",
+    ),
+);
